@@ -86,7 +86,7 @@ source "proxmox-clone" "ubuntu-jammy-server-cloudimg-amd64-docker" {
   onboot     = false
   qemu_agent = true
 
-  cloud_init              = false
+  cloud_init              = true
   cloud_init_storage_pool = "local"
 
   boot    = "c"
@@ -128,8 +128,8 @@ build {
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
       "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
       "sudo apt-get -y update",
-      "sudo apt-get install -y docker-ce docker-ce-cli containerd.io",
-      "sudo apt -y clean",
+      "sudo apt-get -y install docker-ce docker-ce-cli containerd.io",
+      "sudo apt-get -y clean",
     ]
   }
 
