@@ -86,7 +86,7 @@ source "proxmox-clone" "ubuntu-jammy-server-cloudimg-amd64-docker" {
   onboot     = false
   qemu_agent = true
 
-  cloud_init              = true
+  cloud_init              = false
   cloud_init_storage_pool = "local"
 
   boot    = "c"
