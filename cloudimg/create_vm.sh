@@ -7,10 +7,9 @@ MEM="2048"
 DISK_SIZE="32G"
 DISK_STOR="local"
 NET_BRIDGE="vmbr0"
-LOCAL_BRIDGE="vmbr1"
 qm create $VMID --name $TEMPL_NAME --memory $MEM \
     --cores 2 --sockets 1 --cpu cputype=kvm64 --kvm 1 --numa 1 \
-    --net0 virtio,bridge=$LOCAL_BRIDGE --net1 virtio,bridge=$NET_BRIDGE
+    --net0 virtio,bridge=$NET_BRIDGE
 qm set $VMID --args "-cpu kvm64,+cx16,+lahf_lm,+popcnt,+sse3,+ssse3,+sse4.1,+sse4.2"
 qm importdisk $VMID $IMG_NAME $DISK_STOR
 qm set $VMID --scsihw virtio-scsi-pci --virtio0 $DISK_STOR:$VMID/vm-$VMID-disk-0.raw
