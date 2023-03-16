@@ -1,0 +1,31 @@
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: us
+  ssh:
+    install-server: true
+    allow-pw: true
+    disable_root: true
+    ssh_quiet_keygen: true
+    allow_public_ssh_keys: true
+  packages:
+    - qemu-guest-agent
+  late-commands:
+    - curtin in-target --target=/target -- systemctl start qemu-guest-agent
+    - curtin in-target --target=/target -- systemctl enable qemu-guest-agent
+  storage:
+    layout:
+      name: direct
+    swap:
+      size: 0
+  user-data:
+    package_upgrade: true
+    timezone: Europe/Lisbon
+    users:
+      - name: admin
+        passwd: $6$rounds=4096$jdxMC5BQ81idpl9z$fBqLk6tIvHBdT69eOATrfJ3OhPnpeuXNIhJcHxBCpuhkqArQAZyvNpR2jVUblrtFIq1AWyc8uKmDdfkQn0d0i0
+        groups: [adm, cdrom, dip, plugdev, lxd, sudo, docker]
+        lock-passwd: false
+        sudo: ALL=(ALL) NOPASSWD:ALL
+        shell: /bin/bash
