@@ -89,7 +89,7 @@ source "proxmox-clone" "ubuntu-kvm64" {
   cloud_init              = true
   cloud_init_storage_pool = "local"
 
-  boot    = "c"
+  boot    = "order=virtio0;ide2;net0"
   machine = "q35"
   bios    = "ovmf"
   efi_config {
@@ -119,6 +119,9 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = [
+      "DEBIAN_FRONTEND=noninteractive"
+    ]
     inline = [
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
       "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
