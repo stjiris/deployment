@@ -31,8 +31,8 @@ iface vmbr0 inet static
         post-up   iptables -t nat -A POSTROUTING -s '10.10.10.0/24' -o enp1s0f0 -j MASQUERADE
         post-down iptables -t nat -D POSTROUTING -s '10.10.10.0/24' -o enp1s0f0 -j MASQUERADE
 
-        post-up   iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 80xx -j DNAT --to 10.10.10.xx:80
-        post-down iptables -t nat -D PREROUTING -i vmbr0 -p tcp --dport 80xx -j DNAT --to 10.10.10.xx:80
-
         post-up   iptables -t raw -I PREROUTING -i fwbr+ -j CT --zone 1
         post-down iptables -t raw -D PREROUTING -i fwbr+ -j CT --zone 1
+
+        post-up   iptables -t nat -A PREROUTING -i enp1s0f0 -p tcp --dport 80xx -j DNAT --to 10.10.10.xx:80xx
+        post-down iptables -t nat -D PREROUTING -i enp1s0f0 -p tcp --dport 80xx -j DNAT --to 10.10.10.xx:80xx
