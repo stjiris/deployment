@@ -63,7 +63,7 @@ source "proxmox-clone" "ubuntu-kvm64" {
 
   # Proxmox Build VM Settings
   node    = "${var.proxmox_node}"
-  vm_name = "ubuntu-kvm64"
+  vm_name = "ubuntu-kvm64-docker"
   vm_id   = "${var.virtual_machine_id}"
 
   # VM OS Settings
