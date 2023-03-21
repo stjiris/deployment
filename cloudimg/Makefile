@@ -14,6 +14,6 @@ customize:
 	mv ${IMG_NAME} custom-${IMG_NAME}
 
 create:
-	./create_vm.sh
+	./create_ubuntu_kvm64.sh
 
 all: download customize create

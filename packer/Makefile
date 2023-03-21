@@ -1,8 +1,8 @@
-.PHONY: init fmt build validate-packer validate-cloudinit validate
+.PHONY: init fmt build validate-packer validate
 
 CONFIG_FILE:=./config.pkr.hcl
 VARIABLES_FILE:=./variables.pkrvars.hcl
-TEMPLATE_FILE:=./ubuntu-jammy-server-cloudimg-amd64-docker.pkr.hcl
+TEMPLATE_FILE:=./ubuntu-kvm64-docker.pkr.hcl
 
 init:
 	packer init ${CONFIG_FILE}
@@ -15,9 +15,6 @@ build:
 
 validate-packer:
 	packer validate -var-file=${VARIABLES_FILE} ${TEMPLATE_FILE}
-
-validate-cloudinit:
-	cloud-init schema -c http/user-data
 
 validate: validate-packer
 

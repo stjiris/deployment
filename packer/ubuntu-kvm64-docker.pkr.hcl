@@ -52,7 +52,7 @@ variable "ssh_password" {
   sensitive = true
 }
 
-source "proxmox-clone" "ubuntu-jammy-server-cloudimg-amd64-docker" {
+source "proxmox-clone" "ubuntu-kvm64" {
   template_description = "VM Image based on Ubuntu Server 22.04 with Docker"
 
   # Proxmox Connection Settings
@@ -63,7 +63,7 @@ source "proxmox-clone" "ubuntu-jammy-server-cloudimg-amd64-docker" {
 
   # Proxmox Build VM Settings
   node    = "${var.proxmox_node}"
-  vm_name = "ubuntu-jammy-server-cloudimg-amd64-docker"
+  vm_name = "ubuntu-kvm64"
   vm_id   = "${var.virtual_machine_id}"
 
   # VM OS Settings
@@ -98,11 +98,6 @@ source "proxmox-clone" "ubuntu-jammy-server-cloudimg-amd64-docker" {
     pre_enrolled_keys = true
   }
 
-  http_directory = "http"
-  http_interface = "vmbr0"
-  http_port_min  = 8802
-  http_port_max  = 8802
-
   ssh_keypair_name       = "${var.ssh_keypair_name}"
   ssh_private_key_file   = "${var.ssh_private_key_file}"
   ssh_username           = "${var.ssh_username}"
@@ -113,8 +108,8 @@ source "proxmox-clone" "ubuntu-jammy-server-cloudimg-amd64-docker" {
 }
 
 build {
-  name    = "ubuntu-jammy-server-cloudimg-amd64-docker"
-  sources = ["source.proxmox-clone.ubuntu-jammy-server-cloudimg-amd64-docker"]
+  name    = "ubuntu-kvm64-docker"
+  sources = ["source.proxmox-clone.ubuntu-kvm64"]
 
   provisioner "shell" {
     inline = [

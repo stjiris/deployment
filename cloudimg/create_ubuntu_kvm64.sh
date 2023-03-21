@@ -1,7 +1,7 @@
 #!/bin/sh
 
-IMG_NAME="custom-ubuntu-22.04-server-cloudimg-amd64.img"
-TEMPL_NAME="ubuntu-jammy-server-cloudimg-amd64"
+IMG_NAME="ubuntu-kvm64.img"
+TEMPL_NAME="ubuntu-kvm64"
 VMID="9000"
 MEM="2048"
 DISK_SIZE="32G"
