@@ -105,33 +105,12 @@ source "proxmox-clone" "ubuntu-kvm64" {
 }
 
 build {
-  name    = "ubuntu-kvm64-docker"
-  sources = ["source.proxmox-clone.ubuntu-kvm64"]
+  name = "ubuntu-kvm64-docker"
+  sources = [
+    "source.proxmox-clone.ubuntu-kvm64"
+  ]
 
-  provisioner "shell" {
-    inline = [
-      "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done",
-      "sudo truncate -s 0 /etc/machine-id"
-    ]
-  }
-
-  provisioner "shell" {
-    environment_vars = [
-      "DEBIAN_FRONTEND=noninteractive"
-    ]
-    inline = [
-      "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg",
-      "echo \"deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null",
-      "sudo apt-get -y update",
-      "sudo apt-get -y install docker-ce docker-ce-cli containerd.io",
-      "sudo apt-get -y clean",
-    ]
-  }
-
-  provisioner "shell" {
-    inline = [
-      "sudo cloud-init clean",
-      "sudo rm -f /etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg",
-    ]
+  provisioner "ansible" {
+    playbook_file = "./playbook.yml"
   }
 }
