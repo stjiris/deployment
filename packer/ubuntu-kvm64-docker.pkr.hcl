@@ -86,9 +86,6 @@ source "proxmox-clone" "ubuntu-kvm64" {
   onboot     = false
   qemu_agent = true
 
-  cloud_init              = true
-  cloud_init_storage_pool = "local"
-
   boot    = "order=virtio0;ide2;net0"
   machine = "q35"
   bios    = "ovmf"
